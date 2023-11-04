@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.entity.Cart;
+import com.example.entity.CartItems;
 import com.example.repo.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,12 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class CartDaoImpl implements CartDao {
+public class CartItemsDaoImpl implements CartItemsDao {
     @Autowired
     private CartRepository cartRepository;
 
     @Override
-    public void saveItemToCart(final Cart cart) {
+    public void saveItemToCart(final CartItems cart) {
         cartRepository.save(cart);
     }
 
@@ -25,12 +25,17 @@ public class CartDaoImpl implements CartDao {
     }
 
     @Override
-    public List<Cart> getAllItemsForUser(final Integer userId) {
+    public List<CartItems> getAllItemsForUser(final Integer userId) {
         return cartRepository.getListOfItemsForUserId(userId);
     }
 
     @Override
-    public void removeListOfItems(List<Cart> listOfItems) {
+    public void removeListOfItems(List<CartItems> listOfItems) {
         cartRepository.deleteAll(listOfItems);
+    }
+
+    @Override
+    public void clearCartForUser(Integer userId) {
+        cartRepository.deleteAllByUserId(userId);
     }
 }

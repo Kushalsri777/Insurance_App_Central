@@ -34,6 +34,11 @@ public class AppController {
         return insuranceCartHandler.deletePolicyFromCart(deletePolicyFromCartRequest);
     }
 
+    @DeleteMapping("/clearCart/{userId}")
+    public void clearCartForUser(@PathVariable final int userId) {
+        insuranceCartHandler.clearCartForUser(userId);
+    }
+
     @GetMapping("/createOrder/{userId}")
     public CreateOrderFromCartResponse createOrder(@PathVariable final int userId) {
         return insuranceCartHandler.createOrderFromCart(userId);

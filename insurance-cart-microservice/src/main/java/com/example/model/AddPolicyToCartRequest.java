@@ -13,5 +13,5 @@ import lombok.ToString;
 @ToString
 public class AddPolicyToCartRequest {
     private Integer userId;
-    private Policy policyDetails;
+    private Integer policyId;
 }
