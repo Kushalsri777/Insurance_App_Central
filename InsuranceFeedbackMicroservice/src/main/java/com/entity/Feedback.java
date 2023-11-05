@@ -4,7 +4,9 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,11 +22,9 @@ import lombok.ToString;
 @Builder
 public class Feedback {
 	@Id
-	@GeneratedValue
-	private Integer feedbackId;
-	private String feedbackTitle;
-	private String feedbackFrom;
-	private String feedbackBody;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long feedbackId;
 	private Date feedbackDate;
-	private Boolean feedbackAcknowledge;
+	private Long orderId;
+	private String feedbackDescription;
 }

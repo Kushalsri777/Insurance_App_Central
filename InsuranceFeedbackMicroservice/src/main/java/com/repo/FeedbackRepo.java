@@ -1,9 +1,11 @@
 package com.repo;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.entity.Feedback;
 
-public interface FeedbackRepo extends CrudRepository<Feedback, Integer>{
+@Repository
+public interface FeedbackRepo extends CrudRepository<Feedback, Long>{
 
 }

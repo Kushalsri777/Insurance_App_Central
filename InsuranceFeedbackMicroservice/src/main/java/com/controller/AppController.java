@@ -1,9 +1,11 @@
 package com.controller;
 
-import java.util.List;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,24 +22,12 @@ public class AppController {
 	private FeedbackService service;
 	
 	@PostMapping("/addFeedback")
-	public String addFeedback(@RequestBody Feedback feedback) {
+	public ResponseEntity<String> addFeedback(@RequestBody Feedback feedback) throws URISyntaxException {
 		service.addFeedback(feedback);
-		return "feedback added";
-	}
-	
-	@GetMapping("/unacknowledged")
-	private List<Feedback> getAllUnacknowledgedFeedback(){
-		return service.getAllUnacknowledgedFeedback();
-	}
-	
-	@GetMapping("/acknowledged")
-	private List<Feedback> getAllAcknowledgedFeedback(){
-		return service.getAllAcknowledgedFeedback();
-	}
-	
-	@PostMapping("/updateFeedback")
-	private String updateFeedback(@RequestBody Feedback feedback) {
-		service.updateFeedback(feedback);
-		return "Updated";
+		HttpHeaders header = new HttpHeaders();
+		header.add("Order-Id", feedback.getOrderId().toString());
+		 return ResponseEntity.created(new URI("/feedback/" + feedback.getFeedbackId().toString()))
+            .headers(header)
+            .body("Feedback created successfully");
 	}
 }
