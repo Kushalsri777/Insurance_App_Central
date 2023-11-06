@@ -20,7 +20,7 @@ import lombok.ToString;
 public class Discount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int discountId;
-	private int policyId;
-	private int value;
+	private Long discountId;
+	private Long policyId;
+	private Double value;
 }
