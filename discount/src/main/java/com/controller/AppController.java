@@ -35,7 +35,7 @@ public class AppController {
 	}
 	
 	@GetMapping("/showbypolicyid/{id}")
-	public ResponseEntity<Object> showDiscountByPolicyId(@PathVariable Long id ) throws URISyntaxException{
+	public ResponseEntity<Object> showDiscountByPolicyId(@PathVariable Long id ){
 		HttpHeaders header = new HttpHeaders();
 		header.add("Policy-Id", id.toString());
 		return ResponseEntity.ok()
