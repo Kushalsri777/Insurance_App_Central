@@ -7,4 +7,5 @@ public interface InsuranceCartHandler {
     public abstract DeletePolicyFromCartResponse deletePolicyFromCart(final DeletePolicyFromCartRequest deletePolicyFromCartRequest);
     public abstract CreateOrderFromCartResponse createOrderFromCart(final Integer userId);
     public abstract void clearCartForUser(final Integer userId);
+    public abstract AllItemsInCartResponse getAllItemsFromCart(final Integer userId);
 }

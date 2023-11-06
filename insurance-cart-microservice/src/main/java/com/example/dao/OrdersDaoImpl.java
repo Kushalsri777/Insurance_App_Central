@@ -11,8 +11,7 @@ public class OrdersDaoImpl implements OrdersDao {
     private OrdersRepository ordersRepository;
 
     @Override
-    public Boolean addOrder(Orders order) {
+    public void addOrder(Orders order) {
         ordersRepository.save(order);
-        return true;
     }
 }
