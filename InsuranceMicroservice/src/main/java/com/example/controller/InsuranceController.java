@@ -1,62 +1,42 @@
 package com.example.controller;
 
-import com.example.models.AddPolicyRequest;
-import com.example.models.ApplyPolicyRequest;
-import com.example.models.ProvideInfoRequest;
-import com.example.models.RegisterCompanyRequest;
-import com.example.models.UserInfoRequest;
-import com.example.service.InsuranceService;
-
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.entities.Policy;
+
+import com.example.service.PolicyCatalogueService;
 
 @RestController
 @RequestMapping("/insurance")
 public class InsuranceController {
 
     @Autowired
-    private InsuranceService insuranceService;
+    private PolicyCatalogueService service;
 
-    @PostMapping("/applyPolicy")
-    public String applyPolicy(@RequestBody ApplyPolicyRequest request) {
-        return insuranceService.applyPolicy(request);
-    }
-
-    @PostMapping("/provideInfo")
-    public String provideInfo(@RequestBody UserInfoRequest request) {
-        return insuranceService.provideInfo(request);
-    }
-    
-    @GetMapping("/getAllPolicies")
-    public List<Policy> getAllPoliciesByPolicyId() {
-        return insuranceService.getAllPolicies();
+    @PostMapping("/buypolicy")
+    public ResponseEntity<Object> buyPolicy(){
+        HttpHeaders header = new HttpHeaders();
+        return ResponseEntity.ok()
+        .headers(header)
+        .body("Done");
     }
 
-    @PostMapping("/registerCompany")
-    public String registerCompany(@RequestBody RegisterCompanyRequest request) {
-        return insuranceService.registerCompany(request);
+    @GetMapping("/getallpolicies")
+    public ResponseEntity<Object> getAllPolicies(){
+        HttpHeaders header = new HttpHeaders();
+        return ResponseEntity.ok()
+        .headers(header)
+        .body(service.getAllPolicies());
     }
 
-    @PostMapping("/addPolicy")
-    public String addPolicy(@RequestBody AddPolicyRequest request) {
-        return insuranceService.addPolicy(request);
-    }
-    
-    @PutMapping("/updatePolicy/{policyId}")
-    public String updatePolicy(@PathVariable int policyId, @RequestBody AddPolicyRequest request) {
-        return insuranceService.updatePolicy(policyId, request);
+    @GetMapping("/getpolicybyid/{id}")
+    public ResponseEntity<Object> findPolicyById(@PathVariable Long id){
+        HttpHeaders header = new HttpHeaders();
+        return ResponseEntity.ok()
+        .headers(header)
+        .body(service.findPolicyById(id));
     }
 
-    @PostMapping("/provideInfoToBuyers")
-    public String provideInfoToBuyers(@RequestBody ProvideInfoRequest request) {
-        return insuranceService.provideInfoToBuyers(request);
-    }
-
-    @PostMapping("/provideInfoToCompanies")
-    public String provideInfoToCompanies(@RequestBody ProvideInfoRequest request) {
-        return insuranceService.provideInfoToCompanies(request);
-    }
 }
