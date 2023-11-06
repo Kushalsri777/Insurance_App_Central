@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +20,10 @@ public class FeedbackServiceImpl implements FeedbackService{
 	@Transactional
 	public void addFeedback(Feedback feedback) {
 		repo.save(feedback);
+	}
+
+	@Override
+	public List<Feedback> showAll() {
+		return (List<Feedback>)repo.findAll();
 	}
 }
