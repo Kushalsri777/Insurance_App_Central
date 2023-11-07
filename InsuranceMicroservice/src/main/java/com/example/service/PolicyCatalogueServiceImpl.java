@@ -15,20 +15,26 @@ public class PolicyCatalogueServiceImpl implements PolicyCatalogueService {
     private PolicyCatalogueRepo pRepo;
 
     @Override
-    public String buyPolicy() {
-        //Calls Cart MicroService
-        return "Policy Bought";
-    }
-
-    @Override
     public List<PolicyCatalogue> getAllPolicies() {
-       return (List<PolicyCatalogue>)pRepo.findAll();
+        return (List<PolicyCatalogue>) pRepo.findAll();
     }
 
     @Override
     public PolicyCatalogue findPolicyById(Long id) {
-       return  pRepo.findById(id).isPresent() ? pRepo.findById(id).get() : null;
+        return pRepo.findById(id).isPresent() ? pRepo.findById(id).get() : null;
     }
 
-    
+    @Override
+    public Boolean deletePolicy(Long id) {
+        if (!pRepo.findById(id).isPresent())
+            return false;
+        pRepo.deleteById(id);
+        return true;
+    }
+
+    @Override
+    public void addPolicy(PolicyCatalogue policy) {
+        pRepo.save(policy);
+    }
+
 }
