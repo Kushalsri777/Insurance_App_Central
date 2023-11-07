@@ -15,6 +15,7 @@ import org.mockito.stubbing.Answer;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,8 +35,8 @@ public class InsuranceCartHandlerImplTests {
     @Test
     public void addPolicyToCartTest() {
         AddPolicyToCartRequest request = AddPolicyToCartRequest.builder()
-                .userId(1)
-                .policyId(101)
+                .userId(1L)
+                .policyId(101L)
                 .build();
         doNothing().when(cartDao).saveItemToCart(any(CartItems.class));
         AddPolicyToCartResponse expectedResponse = AddPolicyToCartResponse.builder()
@@ -49,10 +50,10 @@ public class InsuranceCartHandlerImplTests {
     @Test
     public void deletePolicyFromCartTest() {
         DeletePolicyFromCartRequest request = DeletePolicyFromCartRequest.builder()
-                .userId(1)
-                .policyId(101)
+                .userId(1L)
+                .policyId(101L)
                 .build();
-        doNothing().when(cartDao).deleteItemFromCart(1, 101);
+        doNothing().when(cartDao).deleteItemFromCart(1L, 101L);
         DeletePolicyFromCartResponse expectedResponse = DeletePolicyFromCartResponse.builder()
                 .isPolicyDeleteSuccessfully(true)
                 .build();
@@ -63,28 +64,28 @@ public class InsuranceCartHandlerImplTests {
 
     @Test
     public void createOrderFromCartTest() {
-        int userId = 1;
+        Long userId = 1L;
         List<CartItems> cartItemsList = Arrays.asList(
-                CartItems.builder().userId(userId).policyId(101).build(),
-                CartItems.builder().userId(userId).policyId(102).build()
-        );
+                CartItems.builder().userId(userId).policyId(101L).build(),
+                CartItems.builder().userId(userId).policyId(102L).build());
         doNothing().when(cartDao).removeListOfItems(cartItemsList);
         doAnswer((Answer<Void>) i -> {
             Orders order = (Orders) i.getArguments()[0];
-            order.setOrderId(1);
+            order.setOrderId(1L);
             return null;
         }).when(ordersDao).addOrder(any(Orders.class));
         CreateOrderFromCartResponse expectedResponse = CreateOrderFromCartResponse.builder()
                 .isOrderCreated(true)
                 .build();
-        CreateOrderFromCartResponse result = insuranceCartHandler.createOrderFromCart(userId);
+        CreateOrderFromCartResponse result = insuranceCartHandler
+                .createOrderFromCart(CreateOrderFromCartRequest.builder().userId(userId).isPaymentDone(true).build());
         assertNotNull(result);
         assertEquals(expectedResponse, result);
     }
 
     @Test
     public void clearCartForUserTest() {
-        int userId = 1;
+        Long userId = 1L;
         doNothing().when(cartDao).clearCartForUser(userId);
         insuranceCartHandler.clearCartForUser(userId);
         verify(cartDao, times(1)).clearCartForUser(userId);
@@ -92,15 +93,14 @@ public class InsuranceCartHandlerImplTests {
 
     @Test
     public void getAllItemsFromCartTest() {
-        int userId = 1;
+        Long userId = 1L;
         List<CartItems> cartItemsList = Arrays.asList(
-                CartItems.builder().userId(userId).policyId(101).build(),
-                CartItems.builder().userId(userId).policyId(102).build()
-        );
+                CartItems.builder().userId(userId).policyId(101L).build(),
+                CartItems.builder().userId(userId).policyId(102L).build());
         when(cartDao.getAllItemsForUser(userId)).thenReturn(cartItemsList);
         AllItemsInCartResponse expectedResponse = AllItemsInCartResponse.builder()
                 .userId(userId)
-                .listOfPolicyIds(Arrays.asList(101, 102))
+                .listOfPolicyIds(Arrays.asList(101L, 102L))
                 .build();
         AllItemsInCartResponse result = insuranceCartHandler.getAllItemsFromCart(userId);
         assertNotNull(result);

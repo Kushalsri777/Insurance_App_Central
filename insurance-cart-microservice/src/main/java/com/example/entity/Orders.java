@@ -21,9 +21,9 @@ import java.util.List;
 public class Orders {
     @Id
     @GeneratedValue
-    private Integer orderId;
-    private Integer userId;
+    private Long orderId;
+    private Long userId;
     private Boolean isPaymentDone;
     @ElementCollection
-    private List<Integer> policyIds;
+    private List<Long> policyIds;
 }

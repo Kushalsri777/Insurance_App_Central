@@ -20,12 +20,12 @@ public class CartItemsDaoImpl implements CartItemsDao {
 
     @Override
     @Transactional
-    public void deleteItemFromCart(final Integer userId, final Integer policyId) {
+    public void deleteItemFromCart(final Long userId, final Long policyId) {
         cartRepository.deleteByPolicyId(userId, policyId);
     }
 
     @Override
-    public List<CartItems> getAllItemsForUser(final Integer userId) {
+    public List<CartItems> getAllItemsForUser(final Long userId) {
         return cartRepository.getListOfItemsForUserId(userId);
     }
 
@@ -35,7 +35,7 @@ public class CartItemsDaoImpl implements CartItemsDao {
     }
 
     @Override
-    public void clearCartForUser(Integer userId) {
+    public void clearCartForUser(Long userId) {
         cartRepository.deleteAllByUserId(userId);
     }
 }

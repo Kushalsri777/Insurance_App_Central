@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Policy {
-    private Integer policyId;
+    private Long policyId;
     private String policyName;
     private String companyName;
 }

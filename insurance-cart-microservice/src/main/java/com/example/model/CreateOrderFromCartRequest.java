@@ -12,6 +12,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class CreateOrderFromCartRequest {
-	private Integer userId;
+	private Long userId;
 	private Boolean isPaymentDone;
 }

@@ -39,12 +39,12 @@ public class AppController {
     }
 
     @DeleteMapping("/clearCart/{userId}")
-    public void clearCartForUser(@PathVariable final int userId) {
+    public void clearCartForUser(@PathVariable final Long userId) {
         insuranceCartHandler.clearCartForUser(userId);
     }
 
     @GetMapping("/getAllItemsFromCart/{userId}")
-    public ResponseEntity<AllItemsInCartResponse> getAllItemsFromCart(@PathVariable final int userId) {
+    public ResponseEntity<AllItemsInCartResponse> getAllItemsFromCart(@PathVariable final Long userId) {
         return ResponseEntity.ok().body(insuranceCartHandler.getAllItemsFromCart(userId));
     }
 

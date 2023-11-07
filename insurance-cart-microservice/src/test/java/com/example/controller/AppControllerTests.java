@@ -27,8 +27,8 @@ public class AppControllerTests {
     @Test
     public void addPolicyToCartTest() {
         AddPolicyToCartRequest request = AddPolicyToCartRequest.builder()
-                .userId(1)
-                .policyId(100)
+                .userId(1L)
+                .policyId(100L)
                 .build();
         AddPolicyToCartResponse response = AddPolicyToCartResponse.builder()
                 .isPolicyAddedSuccessfully(true)
@@ -42,8 +42,8 @@ public class AppControllerTests {
     @Test
     public void deletePolicyFromCartTest() {
         DeletePolicyFromCartRequest request = DeletePolicyFromCartRequest.builder()
-                .userId(1)
-                .policyId(100)
+                .userId(1L)
+                .policyId(100L)
                 .build();
         DeletePolicyFromCartResponse response = DeletePolicyFromCartResponse.builder()
                 .isPolicyDeleteSuccessfully(true)
@@ -56,17 +56,17 @@ public class AppControllerTests {
 
     @Test
     public void clearCartForUserTest() {
-        int userId = 1;
+        Long userId = 1L;
         appController.clearCartForUser(userId);
         verify(insuranceCartHandler, times(1)).clearCartForUser(userId);
     }
 
     @Test
     public void getAllItemsFromCartTest() {
-        int userId = 1;
+        Long userId = 1L;
         AllItemsInCartResponse response = AllItemsInCartResponse.builder()
                 .userId(userId)
-                .listOfPolicyIds(List.of(101, 102, 103))
+                .listOfPolicyIds(List.of(101L, 102L, 103L))
                 .build();
         when(insuranceCartHandler.getAllItemsFromCart(userId)).thenReturn(response);
         ResponseEntity<AllItemsInCartResponse> result = appController.getAllItemsFromCart(userId);
@@ -76,12 +76,16 @@ public class AppControllerTests {
 
     @Test
     public void createOrderFromCartTest() {
-        int userId = 1;
+        Long userId = 1L;
+
         CreateOrderFromCartResponse response = CreateOrderFromCartResponse.builder()
                 .isOrderCreated(true)
                 .build();
-        when(insuranceCartHandler.createOrderFromCart(userId)).thenReturn(response);
-        ResponseEntity<CreateOrderFromCartResponse> result = appController.createOrder(userId);
+        when(insuranceCartHandler
+                .createOrderFromCart(CreateOrderFromCartRequest.builder().userId(userId).isPaymentDone(true).build()))
+                .thenReturn(response);
+        ResponseEntity<CreateOrderFromCartResponse> result = appController
+                .createOrder(CreateOrderFromCartRequest.builder().userId(userId).isPaymentDone(true).build());
         assertNotNull(result);
         assertEquals(response, result.getBody());
     }

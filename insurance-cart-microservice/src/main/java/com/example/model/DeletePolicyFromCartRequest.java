@@ -12,6 +12,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class DeletePolicyFromCartRequest {
-	private Integer userId;
-    private Integer policyId;
+    private Long userId;
+    private Long policyId;
 }

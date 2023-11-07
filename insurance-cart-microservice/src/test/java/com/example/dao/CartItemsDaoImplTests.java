@@ -26,8 +26,8 @@ public class CartItemsDaoImplTests {
     @Test
     public void saveItemToCartTest() {
         CartItems cartItem = CartItems.builder()
-                .userId(1)
-                .policyId(101)
+                .userId(1L)
+                .policyId(101L)
                 .build();
 
         cartItemsDao.saveItemToCart(cartItem);
@@ -37,8 +37,8 @@ public class CartItemsDaoImplTests {
 
     @Test
     public void deleteItemFromCartTest() {
-        int userId = 1;
-        int policyId = 101;
+        Long userId = 1L;
+        Long policyId = 101L;
 
         cartItemsDao.deleteItemFromCart(userId, policyId);
 
@@ -47,10 +47,10 @@ public class CartItemsDaoImplTests {
 
     @Test
     public void getAllItemsForUserTest() {
-        int userId = 1;
+        Long userId = 1L;
         List<CartItems> cartItemsList = new ArrayList<>();
-        cartItemsList.add(CartItems.builder().userId(userId).policyId(101).build());
-        cartItemsList.add(CartItems.builder().userId(userId).policyId(102).build());
+        cartItemsList.add(CartItems.builder().userId(userId).policyId(101L).build());
+        cartItemsList.add(CartItems.builder().userId(userId).policyId(102L).build());
 
         when(cartRepository.getListOfItemsForUserId(userId)).thenReturn(cartItemsList);
 
@@ -63,15 +63,15 @@ public class CartItemsDaoImplTests {
     @Test
     public void removeListOfItemsTest() {
         List<CartItems> cartItemsList = new ArrayList<>();
-        cartItemsList.add(CartItems.builder().userId(1).policyId(101).build());
-        cartItemsList.add(CartItems.builder().userId(2).policyId(102).build());
+        cartItemsList.add(CartItems.builder().userId(1L).policyId(101L).build());
+        cartItemsList.add(CartItems.builder().userId(2L).policyId(102L).build());
         cartItemsDao.removeListOfItems(cartItemsList);
         verify(cartRepository, times(1)).deleteAll(cartItemsList);
     }
 
     @Test
     public void clearCartForUserTest() {
-        int userId = 1;
+        Long userId = 1L;
         cartItemsDao.clearCartForUser(userId);
         verify(cartRepository, times(1)).deleteAllByUserId(userId);
     }

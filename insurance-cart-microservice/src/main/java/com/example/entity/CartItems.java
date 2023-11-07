@@ -19,7 +19,7 @@ import javax.persistence.Id;
 public class CartItems {
     @Id
     @GeneratedValue
-    private Integer cartItemId;
-    private Integer userId;
-    private Integer policyId;
+    private Long cartItemId;
+    private Long userId;
+    private Long policyId;
 }

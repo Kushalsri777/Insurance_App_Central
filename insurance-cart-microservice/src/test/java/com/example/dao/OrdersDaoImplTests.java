@@ -24,7 +24,7 @@ public class OrdersDaoImplTests {
     @Test
     public void addOrderTest() {
         Orders order = Orders.builder()
-                .userId(1)
+                .userId(1L)
                 .isPaymentDone(true)
                 .build();
         ordersDao.addOrder(order);

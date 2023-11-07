@@ -59,12 +59,12 @@ public class InsuranceCartHandlerImpl implements InsuranceCartHandler {
 
     @Override
     @Transactional
-    public void clearCartForUser(final Integer userId) {
+    public void clearCartForUser(final Long userId) {
         cartDao.clearCartForUser(userId);
     }
 
     @Override
-    public AllItemsInCartResponse getAllItemsFromCart(final Integer userId) {
+    public AllItemsInCartResponse getAllItemsFromCart(final Long userId) {
         return AllItemsInCartResponse.builder()
                 .userId(userId)
                 .listOfPolicyIds(cartDao.getAllItemsForUser(userId)
