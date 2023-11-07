@@ -1,4 +1,4 @@
-package com.controller;
+package com.example.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dao.DiscountDao;
-import com.entity.Discount;
+import com.example.dao.DiscountDao;
+import com.example.entity.Discount;
 
 
 @RestController
