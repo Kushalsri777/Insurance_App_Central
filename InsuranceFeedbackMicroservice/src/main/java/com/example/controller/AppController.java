@@ -1,4 +1,4 @@
-package com.controller;
+package com.example.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.entity.Feedback;
-import com.service.FeedbackService;
+import com.example.entity.Feedback;
+import com.example.service.FeedbackService;
 
 @RestController
 @RequestMapping("/feedback")
