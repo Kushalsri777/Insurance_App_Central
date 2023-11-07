@@ -10,7 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Collections;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,6 +69,21 @@ public class UserServiceImplTests {
         when(userDao.forgetPassword(forgetPasswordRequest)).thenReturn(false);
         boolean result = userService.forgetPassword(forgetPasswordRequest);
         assertFalse(result);
+    }
+
+    @Test
+    public void testGetAllUsers() {
+        List<User> userList = Collections.singletonList(new User());
+        Mockito.when(userDao.getAllUsers()).thenReturn(userList);
+        List<User> result = userService.getAllUsers();
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    public void testDeleteById() {
+        Long userId = 1L;
+        userService.deleteById(userId);
+        Mockito.verify(userDao).deleteById(userId);
     }
 }
 
