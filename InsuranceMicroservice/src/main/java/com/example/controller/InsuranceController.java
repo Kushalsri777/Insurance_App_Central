@@ -22,7 +22,7 @@ public class InsuranceController {
     @Autowired
     private RestTemplate restTemplate;
     
-    @PostMapping("/buypolicy/{userId}")
+    @PostMapping("/buyPolicy/{userId}")
     public ResponseEntity<Object> buyPolicy(@PathVariable final int userId){
     	AllItemsInCartResponse cartItemsResponseBody = restTemplate.getForEntity(String.format(
     			String.format(UriConstants.GET_ALL_ITEMS_FROM_CART_URL, userId), userId), 
@@ -33,7 +33,7 @@ public class InsuranceController {
         return ResponseEntity.ok().headers(header).body("DONE !!");
     }
 
-    @GetMapping("/getallpolicies")
+    @GetMapping("/getAllPolicies")
     public ResponseEntity<Object> getAllPolicies(){
         HttpHeaders header = new HttpHeaders();
         return ResponseEntity.ok()
@@ -41,7 +41,7 @@ public class InsuranceController {
         .body(service.getAllPolicies());
     }
 
-    @PostMapping("addpolicy")
+    @PostMapping("/addPolicy")
     public ResponseEntity<Object> addPolicy(@RequestBody PolicyCatalogue policy) {
         service.addPolicy(policy);
         return ResponseEntity.ok()
