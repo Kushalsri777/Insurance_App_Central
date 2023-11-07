@@ -7,15 +7,30 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: productServiceRoute
+        - id: userAuthenticationServiceRoute
           predicates:
-            - Path=/products/**
-          uri:  lb://product-service
-          
-        - id: cartServiceRoute
+            - Path=/authenticate/**
+          uri: lb://user-authentication-service
+
+        - id: userInsuranceServiceRoute
           predicates:
-            - Path=/shoppingcart/**
-          uri:  lb://cart-service
+            - Path=/policycatalogue/**
+          uri: lb://user-insurance-service
+
+        - id: insuranceCartServiceRoute
+          predicates:
+            - Path=/insurancecart/**
+          uri: lb://insurance-cart-service
+
+        - id: feedbackServiceRoute
+          predicates:
+            - Path=/feedback/**
+          uri: lb://feedback-service
+
+        - id: discountServiceRoute
+          predicates:
+            - Path=/discount/**
+          uri: lb://discount-service
 eureka:
   client:
     service-url:
