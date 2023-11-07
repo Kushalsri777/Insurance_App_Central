@@ -18,9 +18,7 @@ public class AppController {
 
 	@PostMapping("/login")
 	public LoginResponse login(@RequestBody LoginRequest loginRequest) {
-		System.out.println("--------");
-		System.out.println(loginRequest);
-		if(userService.userLogin(loginRequest)){
+		if (userService.userLogin(loginRequest)) {
 			return LoginResponse.builder().userLoginResponse(true).build();
 		}
 		return LoginResponse.builder().userLoginResponse(false).build();
@@ -28,7 +26,7 @@ public class AppController {
 
 	@PostMapping("/registration")
 	public RegistrationResponse register(@RequestBody RegistrationRequest registerationRequest) {
-		if(userService.addUserToSystem(User.builder()
+		if (userService.addUserToSystem(User.builder()
 				.userId(registerationRequest.getUserId())
 				.username(registerationRequest.getUsername())
 				.firstName(registerationRequest.getFirstName())
@@ -37,8 +35,7 @@ public class AppController {
 				.gender(registerationRequest.getGender())
 				.userType(registerationRequest.getUserType())
 				.password(registerationRequest.getPassword())
-				.phoneNo(registerationRequest.getPhoneNo()).build())
-		) {
+				.phoneNo(registerationRequest.getPhoneNo()).build())) {
 
 			return RegistrationResponse.builder().userRegistrationResponse(true).build();
 		}
@@ -48,7 +45,7 @@ public class AppController {
 
 	@PostMapping("/forgetPassword")
 	public String forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
-		if(userService.forgetPassword(forgetPasswordRequest)){
+		if (userService.forgetPassword(forgetPasswordRequest)) {
 			return "Password Reset Successfully";
 		}
 		return "Try Again";

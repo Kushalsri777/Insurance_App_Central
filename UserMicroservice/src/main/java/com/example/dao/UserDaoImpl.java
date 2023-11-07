@@ -24,24 +24,25 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean userLogin(final LoginRequest loginRequest) {
 		User user = userTableRepo.findByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
-        return user != null;
-    }
+		return user != null;
+	}
 
 	@Override
 	public boolean forgetPassword(ForgetPasswordRequest forgetPasswordRequest) {
-		User user = userTableRepo.findByUsernameAndNickName(forgetPasswordRequest.getUsername(), forgetPasswordRequest.getNickName());
-		if(user == null || Objects.equals(user.getPassword(), forgetPasswordRequest.getNewPassword())){
+		User user = userTableRepo.findByUsernameAndNickName(forgetPasswordRequest.getUsername(),
+				forgetPasswordRequest.getNickName());
+		if (user == null || Objects.equals(user.getPassword(), forgetPasswordRequest.getNewPassword())) {
 			return false;
 		}
-		//if oldPassword == newPassword then throw custom exception
+		// if oldPassword == newPassword then throw custom exception
 		user.setPassword(forgetPasswordRequest.getNewPassword());
 		userTableRepo.save(user);
 		return true;
 	}
 
-//	@Override
-//	public User getUser(final Integer userId) {
-//		return userTableRepo.findById(userId).get();
-//	}
+	// @Override
+	// public User getUser(final Integer userId) {
+	// return userTableRepo.findById(userId).get();
+	// }
 
 }
