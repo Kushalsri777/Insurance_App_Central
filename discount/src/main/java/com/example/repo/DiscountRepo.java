@@ -1,12 +1,12 @@
-// Repository interface for Discount entity
-package com.repo;
+
+package com.example.repo;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.entity.Discount;
+import com.example.entity.Discount;
 
 @Repository
 public interface DiscountRepo extends CrudRepository<Discount, Long>{

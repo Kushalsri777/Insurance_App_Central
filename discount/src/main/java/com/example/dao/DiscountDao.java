@@ -1,9 +1,9 @@
-// Interface for Discount Data Access Object (DAO)
-package com.dao;
+
+package com.example.dao;
 
 import java.util.List;
 
-import com.entity.Discount;
+import com.example.entity.Discount;
 
 public interface DiscountDao {
 	// Method to add a discount
