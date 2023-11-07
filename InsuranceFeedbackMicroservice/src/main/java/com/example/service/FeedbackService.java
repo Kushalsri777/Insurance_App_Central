@@ -1,8 +1,8 @@
-package com.service;
+package com.example.service;
 
 import java.util.List;
 
-import com.entity.Feedback;
+import com.example.entity.Feedback;
 
 public interface FeedbackService {
 	public void addFeedback(Feedback feedback);
