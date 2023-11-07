@@ -1,4 +1,4 @@
-package com.service;
+package com.example.service;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.entity.Feedback;
-import com.repo.FeedbackRepo;
+import com.example.entity.Feedback;
+import com.example.repo.FeedbackRepo;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService{
