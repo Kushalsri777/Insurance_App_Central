@@ -44,10 +44,7 @@ public class InsuranceController {
     @PostMapping("addpolicy")
     public ResponseEntity<Object> addPolicy(@RequestBody PolicyCatalogue policy) {
         service.addPolicy(policy);
-        HttpHeaders header = new HttpHeaders();
-        header.add("Policy-Id", policy.getPolicyId().toString());
         return ResponseEntity.ok()
-                .headers(header)
                 .body("Policy Added");
     }
 
