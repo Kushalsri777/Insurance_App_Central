@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.entities.User;
 import com.example.repo.UserTableRepo;
 
+import java.util.List;
 import java.util.Objects;
 
 @Repository
@@ -40,9 +41,14 @@ public class UserDaoImpl implements UserDao {
 		return true;
 	}
 
-	// @Override
-	// public User getUser(final Integer userId) {
-	// return userTableRepo.findById(userId).get();
-	// }
+	@Override
+	public List<User> getAllUsers() {
+		return (List<User>)userTableRepo.findAll();
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		userTableRepo.deleteById(id);
+	}
 
 }

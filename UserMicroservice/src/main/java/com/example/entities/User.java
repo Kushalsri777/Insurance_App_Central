@@ -19,7 +19,7 @@ import lombok.ToString;
 public class User {
 	@Id
 	@GeneratedValue
-	private Integer userId;
+	private Long userId;
 	@Column(unique = true)
 	private String username;
 	private String firstName;

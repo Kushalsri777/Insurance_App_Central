@@ -2,6 +2,9 @@ package com.example.service;
 
 import com.example.models.ForgetPasswordRequest;
 import com.example.models.LoginRequest;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Override
 	public boolean addUserToSystem(User user) {
 		return userDao.addUser(user);
@@ -29,9 +32,14 @@ public class UserServiceImpl implements UserService {
 		return userDao.forgetPassword(forgetPasswordRequest);
 	}
 
-//	@Override
-//	public User getUserFromSystem(Integer userId) {
-//		return userDao.getUser(userId);
-//	}
+	@Override
+	public List<User> getAllUsers() {
+		return userDao.getAllUsers();
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		userDao.deleteById(id);
+	}
 
 }

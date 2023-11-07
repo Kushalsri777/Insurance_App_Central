@@ -2,6 +2,9 @@ package com.example.controller;
 
 import com.example.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +20,15 @@ public class AppController {
 	private UserService userService;
 
 	@PostMapping("/login")
-	public LoginResponse login(@RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
 		if (userService.userLogin(loginRequest)) {
-			return LoginResponse.builder().userLoginResponse(true).build();
+			return ResponseEntity.ok().body(LoginResponse.builder().userLoginResponse(true).build());
 		}
-		return LoginResponse.builder().userLoginResponse(false).build();
+		return ResponseEntity.ok().body(LoginResponse.builder().userLoginResponse(false).build());
 	}
 
 	@PostMapping("/registration")
-	public RegistrationResponse register(@RequestBody RegistrationRequest registerationRequest) {
+	public ResponseEntity<Object> register(@RequestBody RegistrationRequest registerationRequest) {
 		if (userService.addUserToSystem(User.builder()
 				.userId(registerationRequest.getUserId())
 				.username(registerationRequest.getUsername())
@@ -37,17 +40,24 @@ public class AppController {
 				.password(registerationRequest.getPassword())
 				.phoneNo(registerationRequest.getPhoneNo()).build())) {
 
-			return RegistrationResponse.builder().userRegistrationResponse(true).build();
+			return ResponseEntity.ok().body(RegistrationResponse.builder().userRegistrationResponse(true).build());
 		}
 
-		return RegistrationResponse.builder().userRegistrationResponse(false).build();
+		return ResponseEntity.ok().body(RegistrationResponse.builder().userRegistrationResponse(false).build());
 	}
 
 	@PostMapping("/forgetPassword")
-	public String forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
+	public ResponseEntity<Object> forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
 		if (userService.forgetPassword(forgetPasswordRequest)) {
-			return "Password Reset Successfully";
+			return ResponseEntity.ok().body("Password Reset Successfully");
 		}
-		return "Try Again";
+		return ResponseEntity.ok().body("Try Again");
 	}
+
+	@DeleteMapping("/deleteuser/{id}")
+	public ResponseEntity<Object> deleteUser(@PathVariable("id") Long id) {
+		userService.deleteById(id);
+		return ResponseEntity.ok().body("User Deleted");
+	}
+
 }

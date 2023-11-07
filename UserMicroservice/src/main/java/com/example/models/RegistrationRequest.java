@@ -1,6 +1,5 @@
 package com.example.models;
 
-
 import com.example.enums.UserType;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +14,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class RegistrationRequest {
-	private int userId;
+	private Long userId;
 	private String username;
 	private String firstName;
 	private String lastName;
@@ -23,7 +22,5 @@ public class RegistrationRequest {
 	private UserType userType;
 	private String gender;
 	private String nickName;
-	private String companyName;
-	private String gstinNo;
 	private String password;
 }
