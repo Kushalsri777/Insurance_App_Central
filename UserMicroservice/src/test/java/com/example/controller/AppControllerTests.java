@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.example.models.*;
@@ -83,5 +85,12 @@ public class AppControllerTests {
                                 .content(new ObjectMapper().writeValueAsString(forgetPasswordRequest)))
                                 .andExpect(status().isOk())
                                 .andExpect(content().string("Password Reset Successfully"));
+        }
+
+        @Test
+        public void testDeleteUser() {
+                Long userId = 1L;
+                ResponseEntity<Object> response = appController.deleteUser(userId);
+                assertEquals(200, response.getStatusCodeValue());
         }
 }
