@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @EnableJpaRepositories("com.example.repo")
 @EntityScan("com.example.entity")
 @OpenAPIDefinition(info = @Info(title = "Insurance Service API", description = "Manage Insurance Policies", version = ""))
-//@EnableEurekaClient
+@EnableEurekaClient
 public class InsuranceServiceApplication {
 
 	public static void main(String[] args) {
