@@ -27,7 +27,7 @@ public class AppController {
 	}
 
 	@PostMapping("/registration")
-	public RegisterationResponse register(@RequestBody RegisterationRequest registerationRequest) {
+	public RegistrationResponse register(@RequestBody RegistrationRequest registerationRequest) {
 		if(userService.addUserToSystem(User.builder()
 				.userId(registerationRequest.getUserId())
 				.username(registerationRequest.getUsername())
@@ -36,16 +36,14 @@ public class AppController {
 				.nickName(registerationRequest.getNickName())
 				.gender(registerationRequest.getGender())
 				.userType(registerationRequest.getUserType())
-				.companyName(registerationRequest.getCompanyName())
-				.gstinNo(registerationRequest.getGstinNo())
 				.password(registerationRequest.getPassword())
 				.phoneNo(registerationRequest.getPhoneNo()).build())
 		) {
 
-			return RegisterationResponse.builder().userRegisterationResponse(true).build();
+			return RegistrationResponse.builder().userRegistrationResponse(true).build();
 		}
 
-		return RegisterationResponse.builder().userRegisterationResponse(false).build();
+		return RegistrationResponse.builder().userRegistrationResponse(false).build();
 	}
 
 	@PostMapping("/forgetPassword")

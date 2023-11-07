@@ -11,6 +11,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-public class RegisterationResponse {
-	private boolean userRegisterationResponse;
+public class RegistrationResponse {
+	private boolean userRegistrationResponse;
 }

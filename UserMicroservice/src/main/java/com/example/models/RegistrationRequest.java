@@ -14,7 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-public class RegisterationRequest {
+public class RegistrationRequest {
 	private int userId;
 	private String username;
 	private String firstName;
