@@ -8,11 +8,15 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+
 @SpringBootApplication
 @ComponentScan("com")
 @EntityScan("com.entity")
 @EnableJpaRepositories("com.repo")
 @EnableEurekaClient
+@OpenAPIDefinition(info = @Info(title = "Discount API", description = "Manage Discounts", version = "")) 
 public class DiscountApplication {
 
 	public static void main(String[] args) {
