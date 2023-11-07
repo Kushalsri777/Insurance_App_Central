@@ -54,7 +54,7 @@ public class AppController {
 		return ResponseEntity.ok().body("Try Again");
 	}
 
-	@DeleteMapping("/deleteuser/{id}")
+	@DeleteMapping("/deleteUser/{id}")
 	public ResponseEntity<Object> deleteUser(@PathVariable("id") Long id) {
 		userService.deleteById(id);
 		return ResponseEntity.ok().body("User Deleted");
