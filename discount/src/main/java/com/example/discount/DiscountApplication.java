@@ -1,3 +1,4 @@
+// Main application class for Discount microservice
 package com.example.discount;
 
 import org.springframework.boot.SpringApplication;

@@ -1,3 +1,4 @@
+// Entity class representing Discount information
 package com.entity;
 
 import javax.persistence.Entity;
