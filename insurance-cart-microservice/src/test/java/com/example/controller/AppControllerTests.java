@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Arrays;
 import java.util.List;
 
 public class AppControllerTests {
@@ -66,7 +68,7 @@ public class AppControllerTests {
         Long userId = 1L;
         AllItemsInCartResponse response = AllItemsInCartResponse.builder()
                 .userId(userId)
-                .listOfPolicyIds(List.of(101L, 102L, 103L))
+                .listOfPolicyIds(Arrays.asList(101L, 102L, 103L))
                 .build();
         when(insuranceCartHandler.getAllItemsFromCart(userId)).thenReturn(response);
         ResponseEntity<AllItemsInCartResponse> result = appController.getAllItemsFromCart(userId);

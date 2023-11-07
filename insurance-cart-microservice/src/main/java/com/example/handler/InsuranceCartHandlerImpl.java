@@ -45,6 +45,9 @@ public class InsuranceCartHandlerImpl implements InsuranceCartHandler {
     @Override
     public CreateOrderFromCartResponse createOrderFromCart(final CreateOrderFromCartRequest createOrderRequest) {
         List<CartItems> listOfCartItems = cartDao.getAllItemsForUser(createOrderRequest.getUserId());
+        if (listOfCartItems.isEmpty()) {
+        	return CreateOrderFromCartResponse.builder().isOrderCreated(false).build();
+        }
         ordersDao.addOrder(Orders.builder()
                 .userId(createOrderRequest.getUserId())
                 .isPaymentDone(createOrderRequest.getIsPaymentDone())
