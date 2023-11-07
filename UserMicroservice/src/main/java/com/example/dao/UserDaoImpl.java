@@ -43,12 +43,16 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> getAllUsers() {
-		return (List<User>)userTableRepo.findAll();
+		return (List<User>) userTableRepo.findAll();
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		userTableRepo.deleteById(id);
+		if (userTableRepo.existsById(id))
+			userTableRepo.deleteById(id);
+		else
+			throw new NullPointerException("User Not Found");
+		// System.out.println("User Not Found");
 	}
 
 }
