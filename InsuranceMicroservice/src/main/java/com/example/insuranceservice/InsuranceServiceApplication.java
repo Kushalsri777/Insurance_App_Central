@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @SpringBootApplication
 @ComponentScan("com")
 @EnableJpaRepositories("com.example.repo")
-@EntityScan("com.example.entities")
+@EntityScan("com.example.entity")
 @OpenAPIDefinition(info = @Info(title = "Insurance Service API", description = "Manage Insurance Policies", version = ""))
 //@EnableEurekaClient
 public class InsuranceServiceApplication {
