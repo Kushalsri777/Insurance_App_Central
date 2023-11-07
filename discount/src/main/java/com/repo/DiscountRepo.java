@@ -1,3 +1,4 @@
+// Repository interface for Discount entity
 package com.repo;
 
 import java.util.List;
