@@ -5,6 +5,7 @@ import com.example.dao.OrdersDao;
 import com.example.entity.CartItems;
 import com.example.entity.Orders;
 import com.example.model.AllItemsInCartResponse;
+import com.example.model.CreateOrderFromCartRequest;
 import com.example.model.AddPolicyToCartRequest;
 import com.example.model.AddPolicyToCartResponse;
 import com.example.model.CreateOrderFromCartResponse;
@@ -42,11 +43,11 @@ public class InsuranceCartHandlerImpl implements InsuranceCartHandler {
 
 
     @Override
-    public CreateOrderFromCartResponse createOrderFromCart(final Integer userId) {
-        List<CartItems> listOfCartItems = cartDao.getAllItemsForUser(userId);
+    public CreateOrderFromCartResponse createOrderFromCart(final CreateOrderFromCartRequest createOrderRequest) {
+        List<CartItems> listOfCartItems = cartDao.getAllItemsForUser(createOrderRequest.getUserId());
         ordersDao.addOrder(Orders.builder()
-                .userId(userId)
-                .isPaymentDone(Boolean.FALSE)
+                .userId(createOrderRequest.getUserId())
+                .isPaymentDone(createOrderRequest.getIsPaymentDone())
                 .policyIds(listOfCartItems
                         .stream()
                         .map(CartItems::getPolicyId)

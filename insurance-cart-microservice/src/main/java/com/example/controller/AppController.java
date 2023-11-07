@@ -7,6 +7,7 @@ import com.example.model.AddPolicyToCartResponse;
 import com.example.model.DeletePolicyFromCartRequest;
 import com.example.model.DeletePolicyFromCartResponse;
 import com.example.model.CreateOrderFromCartResponse;
+import com.example.model.CreateOrderFromCartRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,8 +47,8 @@ public class AppController {
         return ResponseEntity.ok().body(insuranceCartHandler.getAllItemsFromCart(userId));
     }
 
-    @GetMapping("/createOrder/{userId}")
-    public ResponseEntity<CreateOrderFromCartResponse> createOrder(@PathVariable final int userId) {
-        return ResponseEntity.ok().body(insuranceCartHandler.createOrderFromCart(userId));
+    @PostMapping("/createOrder")
+    public ResponseEntity<CreateOrderFromCartResponse> createOrder(@RequestBody CreateOrderFromCartRequest createOrderRequest) {
+        return ResponseEntity.ok().body(insuranceCartHandler.createOrderFromCart(createOrderRequest));
     }
 }
