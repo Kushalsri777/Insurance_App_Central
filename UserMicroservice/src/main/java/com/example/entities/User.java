@@ -28,8 +28,5 @@ public class User {
 	private UserType userType;
 	private String gender;
 	private String nickName;
-	private String companyName;
-	@Column(unique = true)
-	private String gstinNo;
 	private String password;
 }
