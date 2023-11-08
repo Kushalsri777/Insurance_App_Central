@@ -11,6 +11,7 @@ import com.example.entity.PolicyCatalogue;
 import com.example.model.AllItemsInCartResponse;
 import com.example.model.CreateOrderFromCartRequest;
 import com.example.model.CreateOrderFromCartResponse;
+import com.example.model.PolicyDetailsOfCartItemResponse;
 import com.example.service.PolicyCatalogueService;
 
 @RestController
@@ -19,22 +20,17 @@ public class InsuranceController {
 
     @Autowired
     private PolicyCatalogueService service;
-    @Autowired
-    private RestTemplate restTemplate;
     
     @PostMapping("/buyPolicy/{userId}")
-    public ResponseEntity<Object> buyPolicy(@PathVariable final int userId){
-    	AllItemsInCartResponse cartItemsResponseBody = restTemplate.getForEntity(String.format(
-    			String.format(UriConstants.GET_ALL_ITEMS_FROM_CART_URL, userId), userId), 
-    			AllItemsInCartResponse.class).getBody();
-    	restTemplate.postForEntity(UriConstants.CREATE_ORDER_FROM_CART_URL, CreateOrderFromCartRequest.builder()
-    			.userId(userId).isPaymentDone(Boolean.TRUE).build(), CreateOrderFromCartResponse.class);
-        HttpHeaders header = new HttpHeaders();
-        return ResponseEntity.ok().headers(header).body("DONE !!");
+    public ResponseEntity<Object> buyPolicy(@PathVariable final long userId){
+    	System.out.println("UserId:- " + userId);
+        service.handleBuyPolicy(userId);
+        return ResponseEntity.ok().headers(new HttpHeaders()).body("DONE !!");
     }
 
     @GetMapping("/getAllPolicies")
     public ResponseEntity<Object> getAllPolicies(){
+    	System.out.println("------ CHECKING ------");
         HttpHeaders header = new HttpHeaders();
         return ResponseEntity.ok()
         .headers(header)
@@ -62,6 +58,12 @@ public class InsuranceController {
         return ResponseEntity.ok()
                 .headers(header)
                 .body(service.findPolicyById(id));
+    }
+    
+    @GetMapping("/getPolicyDetailsOfCartItems/{userId}")
+    public ResponseEntity<Object> getPolicyDetailsOfCartItem(@PathVariable final long userId){
+    	HttpHeaders header = new HttpHeaders();
+        return ResponseEntity.ok().headers(header).body(service.getPolicyDetailsOfCartItems(userId));
     }
 
 }

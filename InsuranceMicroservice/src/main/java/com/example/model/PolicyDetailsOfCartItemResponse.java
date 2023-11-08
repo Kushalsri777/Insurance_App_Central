@@ -1,5 +1,9 @@
 package com.example.model;
 
+import java.util.List;
+
+import com.example.entity.PolicyCatalogue;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CreateOrderFromCartRequest {
+public class PolicyDetailsOfCartItemResponse {
 	private Long userId;
-	private Boolean isPaymentDone;
+	private List<PolicyCatalogue> listOfPolicyDetails;
 }

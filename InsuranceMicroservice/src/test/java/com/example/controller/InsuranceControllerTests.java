@@ -24,18 +24,10 @@ public class InsuranceControllerTests {
     private InsuranceController insuranceController;
     @Mock
     private PolicyCatalogueService policyCatalogueService;
-    @Mock
-    private RestTemplate restTemplate;
 
     @Test
     public void buyPolicyTest() {
-        int userId = 1;
-        ResponseEntity<AllItemsInCartResponse> cartItemsResponse = ResponseEntity.ok(AllItemsInCartResponse.builder().build());
-        when(restTemplate.getForEntity(anyString(), eq(AllItemsInCartResponse.class)))
-                .thenReturn(cartItemsResponse);
-        ResponseEntity<CreateOrderFromCartResponse> createOrderResponse = ResponseEntity.ok(CreateOrderFromCartResponse.builder().build());
-        when(restTemplate.postForEntity(anyString(), any(CreateOrderFromCartRequest.class), eq(CreateOrderFromCartResponse.class)))
-                .thenReturn(createOrderResponse);
+        Long userId = 1L;
         ResponseEntity<Object> result = insuranceController.buyPolicy(userId);
         assertNotNull(result);
         assertEquals("DONE !!", result.getBody());

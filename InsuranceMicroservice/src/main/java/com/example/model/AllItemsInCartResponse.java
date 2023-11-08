@@ -14,6 +14,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class AllItemsInCartResponse {
-    private Integer userId;
-    private List<Integer> listOfPolicyIds;
+    private Long userId;
+    private List<Long> listOfPolicyIds;
 }
