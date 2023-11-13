@@ -13,10 +13,10 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
 @ComponentScan("com")
-@EntityScan("com.entity")
-@EnableJpaRepositories("com.repo")
+@EntityScan("com.example.entity")
+@EnableJpaRepositories("com.example.repo")
 @EnableEurekaClient
-@OpenAPIDefinition(info = @Info(title = "Discount API", description = "Manage Discounts", version = "")) 
+@OpenAPIDefinition(info = @Info(title = "Discount API", description = "Manage Discounts", version = ""))
 public class DiscountApplication {
 
 	public static void main(String[] args) {
