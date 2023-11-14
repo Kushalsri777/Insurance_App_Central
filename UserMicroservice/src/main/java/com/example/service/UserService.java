@@ -16,4 +16,8 @@ public interface UserService {
 	List<User> getAllUsers();
 
 	void deleteById(final Long id);
+
+	String generateToken(String username);
+
+	void validateToken(String token);
 }

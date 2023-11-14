@@ -13,4 +13,5 @@ import lombok.ToString;
 @Builder
 public class LoginResponse {
 	private boolean userLoginResponse;
+	public String token;
 }

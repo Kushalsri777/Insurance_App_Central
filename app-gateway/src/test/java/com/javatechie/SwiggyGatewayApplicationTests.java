@@ -1,10 +1,10 @@
-package com.example.appgateway;
+package com.javatechie;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AppGatewayApplicationTests {
+class SwiggyGatewayApplicationTests {
 
 	@Test
 	void contextLoads() {

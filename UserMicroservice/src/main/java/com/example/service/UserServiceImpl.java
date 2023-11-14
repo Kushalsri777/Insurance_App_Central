@@ -2,10 +2,12 @@ package com.example.service;
 
 import com.example.models.ForgetPasswordRequest;
 import com.example.models.LoginRequest;
+import com.example.security.JwtUtil;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.UserDao;
@@ -17,8 +19,25 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private JwtUtil jwtUtil;
+
+	@Override
+	public String generateToken(String username) {
+		return jwtUtil.generateToken(username);
+	}
+	
+	@Override
+	public void validateToken(String token) {
+		jwtUtil.validateToken(token);
+	}
+
 	@Override
 	public boolean addUserToSystem(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userDao.addUser(user);
 	}
 
