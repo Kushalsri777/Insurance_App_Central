@@ -6,10 +6,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class SwiggyGatewayApplication {
+public class AppGateway {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SwiggyGatewayApplication.class, args);
+		SpringApplication.run(AppGateway.class, args);
 	}
 
 }
