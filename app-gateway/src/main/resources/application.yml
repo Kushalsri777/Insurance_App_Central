@@ -33,7 +33,7 @@ spring:
             - Path=/authenticate/**
           uri: "lb://user-authentication-service"
   application:
-    name: SWIGGY-GATEWAY
+    name: App-GATEWAY
 eureka:
   client:
     service-url:
