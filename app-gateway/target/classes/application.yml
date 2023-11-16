@@ -11,6 +11,13 @@ spring:
           filters:
             - AuthenticationFilter
 
+        - id: feedback-service
+          uri: lb://FEEDBACK-SERVICE
+          predicates:
+            - Path=/feedback/**
+          filters:
+            - AuthenticationFilter
+
         - id: user-insurance-service
           uri: lb://USER-INSURANCE-SERVICE
           predicates:
