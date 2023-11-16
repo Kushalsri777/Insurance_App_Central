@@ -10,5 +10,5 @@ public interface DiscountDao {
 	public void addDiscount(Discount discount);
 
 	// Method to get discounts by policy ID
-	public List<Discount> getDiscountByPolicyId(List<Long> policyId);
+	public List<Discount> getDiscountByPolicyId();
 }

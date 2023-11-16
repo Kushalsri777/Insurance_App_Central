@@ -20,8 +20,8 @@ public class DiscountDaoImpl implements DiscountDao {
 	}
 
 	@Override
-	public List<Discount> getDiscountByPolicyId(List<Long> policyId) {
-		return dRepo.findAllByPolicyId(policyId);
+	public List<Discount> getDiscountByPolicyId() {
+		return (List<Discount>) dRepo.findAll();
 	}
 
 }
