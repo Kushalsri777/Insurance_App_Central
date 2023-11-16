@@ -7,11 +7,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -31,7 +33,7 @@ public class AppControllerTests {
     }
 
     @Test
-    public void testAddDiscount() throws URISyntaxException {
+    public void addDiscountTest() throws URISyntaxException {
         Discount discount = Discount.builder()
                 .policyId(1L)
                 .value(0.2)
@@ -48,23 +50,13 @@ public class AppControllerTests {
         assertEquals("Discount created successfully", response.getBody());
     }
 
-    // @Test
-    // public void testShowDiscountByPolicyId() {
-    // List<Long> policyId = Arrays.asList(1L, 2L);
-    // List<Discount> discountList = Arrays.asList(
-    // Discount.builder().policyId(policyId).value(0.2).build(),
-    // Discount.builder().policyId(policyId).value(0.3).build());
-
-    // when(discountDao.getDiscountByPolicyId(policyId)).thenReturn(discountList);
-
-    // ResponseEntity<Object> response =
-    // appController.showDiscountByPolicyId(policyId);
-
-    // assertNotNull(response);
-    // assertEquals(200, response.getStatusCodeValue());
-    // HttpHeaders headers = response.getHeaders();
-    // assertTrue(headers.containsKey("Policy-Id"));
-    // assertEquals(discountList, response.getBody());
-    // }
+    @Test
+    public void showDiscountByPolicyIdTest() {
+        List<Discount> discounts = Collections.singletonList(new Discount());
+        Mockito.when(discountDao.getDiscountByPolicyId()).thenReturn(discounts);
+        ResponseEntity<Object> response = appController.showDiscountByPolicyId();
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(discounts, response.getBody());
+    }
 
 }
