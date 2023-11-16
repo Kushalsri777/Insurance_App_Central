@@ -1,5 +1,8 @@
 package com.example.handler;
 
+import java.util.List;
+
+import com.example.entity.Orders;
 import com.example.model.*;
 
 public interface InsuranceCartHandler {
@@ -14,4 +17,6 @@ public interface InsuranceCartHandler {
     public abstract void clearCartForUser(final Long userId);
 
     public abstract AllItemsInCartResponse getAllItemsFromCart(final Long userId);
+    
+    public abstract List<OrderDetailsResponse> getOrderDetails(final Long userId);
 }

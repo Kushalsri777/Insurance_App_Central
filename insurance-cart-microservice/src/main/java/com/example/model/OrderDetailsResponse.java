@@ -1,4 +1,8 @@
-package com.example.entity;
+package com.example.model;
+
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,25 +10,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.List;
-
-@Entity
-@Builder
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Orders {
-    @Id
-    @GeneratedValue
-    private Long orderId;
+public class OrderDetailsResponse {
+	private Long orderId;
     private Long userId;
     private Boolean isPaymentDone;
     private Double totalAmountPaid;
-    @ElementCollection
     private List<Long> policyIds;
 }

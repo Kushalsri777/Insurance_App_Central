@@ -11,6 +11,8 @@ import com.example.model.AddPolicyToCartResponse;
 import com.example.model.CreateOrderFromCartResponse;
 import com.example.model.DeletePolicyFromCartRequest;
 import com.example.model.DeletePolicyFromCartResponse;
+import com.example.model.OrderDetailsResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +53,7 @@ public class InsuranceCartHandlerImpl implements InsuranceCartHandler {
         ordersDao.addOrder(Orders.builder()
                 .userId(createOrderRequest.getUserId())
                 .isPaymentDone(createOrderRequest.getIsPaymentDone())
+                .totalAmountPaid(createOrderRequest.getTotalAmountPaid())
                 .policyIds(listOfCartItems
                         .stream()
                         .map(CartItems::getPolicyId)
@@ -75,4 +78,18 @@ public class InsuranceCartHandlerImpl implements InsuranceCartHandler {
                         .collect(Collectors.toList()))
                 .build();
     }
+
+	@Override
+	public List<OrderDetailsResponse> getOrderDetails(final Long userId) {
+		List<Orders> ordersList = ordersDao.getOrderForUser(userId);
+		return ordersList.stream().map(order -> {
+			return OrderDetailsResponse.builder()
+					.isPaymentDone(order.getIsPaymentDone())
+					.totalAmountPaid(order.getTotalAmountPaid())
+					.orderId(order.getOrderId())
+					.policyIds(order.getPolicyIds())
+					.userId(order.getUserId())
+					.build();
+		}).toList();
+	}
 }

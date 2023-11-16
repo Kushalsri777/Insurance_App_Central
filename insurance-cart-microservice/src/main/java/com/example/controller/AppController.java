@@ -6,8 +6,11 @@ import com.example.model.AddPolicyToCartRequest;
 import com.example.model.AddPolicyToCartResponse;
 import com.example.model.DeletePolicyFromCartRequest;
 import com.example.model.DeletePolicyFromCartResponse;
+import com.example.model.OrderDetailsResponse;
 import com.example.model.CreateOrderFromCartResponse;
 import com.example.model.CreateOrderFromCartRequest;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +55,11 @@ public class AppController {
     public ResponseEntity<CreateOrderFromCartResponse> createOrder(
             @RequestBody CreateOrderFromCartRequest createOrderRequest) {
         return ResponseEntity.ok().body(insuranceCartHandler.createOrderFromCart(createOrderRequest));
+    }
+    
+    @GetMapping("/getAllOrderDetails/{userId}")
+    public ResponseEntity<List<OrderDetailsResponse>> createOrder(
+            @PathVariable final Long userId) {
+        return ResponseEntity.ok().body(insuranceCartHandler.getOrderDetails(userId));
     }
 }

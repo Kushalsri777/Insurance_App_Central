@@ -13,5 +13,6 @@ import lombok.ToString;
 @ToString
 public class CreateOrderFromCartRequest {
 	private Long userId;
+	private Double totalAmountPaid;
 	private Boolean isPaymentDone;
 }
