@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	public String generateToken(String username) {
 		return jwtUtil.generateToken(username);
 	}
-	
+
 	@Override
 	public void validateToken(String token) {
 		jwtUtil.validateToken(token);
@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean forgetPassword(ForgetPasswordRequest forgetPasswordRequest) {
+		forgetPasswordRequest.setNewPassword(passwordEncoder.encode(forgetPasswordRequest.getNewPassword()));
 		return userDao.forgetPassword(forgetPasswordRequest);
 	}
 
