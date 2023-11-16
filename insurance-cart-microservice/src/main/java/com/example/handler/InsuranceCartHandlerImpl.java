@@ -30,25 +30,25 @@ public class InsuranceCartHandlerImpl implements InsuranceCartHandler {
     @Override
     public AddPolicyToCartResponse addPolicyToCart(final AddPolicyToCartRequest addPolicyToCartRequest) {
         cartDao.saveItemToCart(CartItems.builder()
-                        .userId(addPolicyToCartRequest.getUserId())
-                        .policyId(addPolicyToCartRequest.getPolicyId())
+                .userId(addPolicyToCartRequest.getUserId())
+                .policyId(addPolicyToCartRequest.getPolicyId())
                 .build());
         return AddPolicyToCartResponse.builder()
                 .isPolicyAddedSuccessfully(Boolean.TRUE).build();
     }
 
     @Override
-    public DeletePolicyFromCartResponse deletePolicyFromCart(final DeletePolicyFromCartRequest deletePolicyFromCartRequest) {
+    public DeletePolicyFromCartResponse deletePolicyFromCart(
+            final DeletePolicyFromCartRequest deletePolicyFromCartRequest) {
         cartDao.deleteItemFromCart(deletePolicyFromCartRequest.getUserId(), deletePolicyFromCartRequest.getPolicyId());
         return DeletePolicyFromCartResponse.builder().isPolicyDeleteSuccessfully(true).build();
     }
-
 
     @Override
     public CreateOrderFromCartResponse createOrderFromCart(final CreateOrderFromCartRequest createOrderRequest) {
         List<CartItems> listOfCartItems = cartDao.getAllItemsForUser(createOrderRequest.getUserId());
         if (listOfCartItems.isEmpty()) {
-        	return CreateOrderFromCartResponse.builder().isOrderCreated(false).build();
+            return CreateOrderFromCartResponse.builder().isOrderCreated(false).build();
         }
         ordersDao.addOrder(Orders.builder()
                 .userId(createOrderRequest.getUserId())
@@ -79,17 +79,17 @@ public class InsuranceCartHandlerImpl implements InsuranceCartHandler {
                 .build();
     }
 
-	@Override
-	public List<OrderDetailsResponse> getOrderDetails(final Long userId) {
-		List<Orders> ordersList = ordersDao.getOrderForUser(userId);
-		return ordersList.stream().map(order -> {
-			return OrderDetailsResponse.builder()
-					.isPaymentDone(order.getIsPaymentDone())
-					.totalAmountPaid(order.getTotalAmountPaid())
-					.orderId(order.getOrderId())
-					.policyIds(order.getPolicyIds())
-					.userId(order.getUserId())
-					.build();
-		}).toList();
-	}
+    @Override
+    public List<OrderDetailsResponse> getOrderDetails(final Long userId) {
+        List<Orders> ordersList = ordersDao.getOrderForUser(userId);
+        return ordersList.stream().map(order -> {
+            return OrderDetailsResponse.builder()
+                    .isPaymentDone(order.getIsPaymentDone())
+                    .totalAmountPaid(order.getTotalAmountPaid())
+                    .orderId(order.getOrderId())
+                    .policyIds(order.getPolicyIds())
+                    .userId(order.getUserId())
+                    .build();
+        }).collect(Collectors.toList());
+    }
 }
