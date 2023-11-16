@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @SpringBootApplication
 @ComponentScan("com")
 @EntityScan("com.example.entity")
-@EnableJpaRepositories("come.example.repo")
+@EnableJpaRepositories("com.example.repo")
 @EnableEurekaClient
 @OpenAPIDefinition(info = @Info(title = "Feedback", description = "Give Feedback", version = ""))
 public class FeedbackMicroserviceApplication {

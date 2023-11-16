@@ -9,19 +9,19 @@ import com.example.entity.Discount;
 import com.example.repo.DiscountRepo;
 
 @Service
-public class DiscountDaoImpl implements DiscountDao{
+public class DiscountDaoImpl implements DiscountDao {
 
 	@Autowired
 	private DiscountRepo dRepo;
-	
+
 	@Override
 	public void addDiscount(Discount discount) {
 		dRepo.save(discount);
 	}
 
 	@Override
-	public List<Discount> getDiscountByPolicyId(Long policyId) {
-		return dRepo.findByPolicyId(policyId);
+	public List<Discount> getDiscountByPolicyId(List<Long> policyId) {
+		return dRepo.findAllByPolicyId(policyId);
 	}
 
 }

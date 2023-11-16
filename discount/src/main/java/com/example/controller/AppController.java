@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -41,8 +42,8 @@ public class AppController {
 	}
 	
 	// Endpoint to retrieve discounts by policy ID
-	@GetMapping("/showbypolicyid/{id}")
-	public ResponseEntity<Object> showDiscountByPolicyId(@PathVariable Long id ){
+	@GetMapping("/showbypolicyid")
+	public ResponseEntity<Object> showDiscountByPolicyId(@RequestBody List<Long> id ){
 		HttpHeaders header = new HttpHeaders();
 		header.add("Policy-Id", id.toString());
 		// Return response with OK status, headers, and discounts

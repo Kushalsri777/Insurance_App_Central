@@ -8,7 +8,7 @@ import com.example.entity.Discount;
 public interface DiscountDao {
 	// Method to add a discount
 	public void addDiscount(Discount discount);
-	
+
 	// Method to get discounts by policy ID
-	public List<Discount> getDiscountByPolicyId(Long policyId);
+	public List<Discount> getDiscountByPolicyId(List<Long> policyId);
 }

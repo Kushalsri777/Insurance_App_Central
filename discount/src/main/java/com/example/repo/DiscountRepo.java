@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.example.entity.Discount;
 
 @Repository
-public interface DiscountRepo extends CrudRepository<Discount, Long>{
-	  List<Discount> findByPolicyId(Long policyId);
+public interface DiscountRepo extends CrudRepository<Discount, Long> {
+	List<Discount> findAllByPolicyId(List<Long> policyId);
 }
