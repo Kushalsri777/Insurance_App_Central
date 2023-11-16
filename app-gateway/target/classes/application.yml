@@ -11,6 +11,20 @@ spring:
           filters:
             - AuthenticationFilter
 
+        - id: user-insurance-service
+          uri: lb://USER-INSURANCE-SERVICE
+          predicates:
+            - Path=/insurance/**
+          filters:
+            - AuthenticationFilter
+
+        - id: insurance-cart-service
+          uri: lb://INSURANCE-CART-SERVICE
+          predicates:
+            - Path=/insurancecart/**
+          filters:
+            - AuthenticationFilter
+
         - id: user-authentication-service
           uri: lb://USER-AUTHENTICATION-SERVICE
           predicates:

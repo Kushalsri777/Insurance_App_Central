@@ -8,12 +8,9 @@ import com.example.model.CreateOrderFromCartResponse;
 import com.example.model.PolicyDetailsOfCartItemResponse;
 import com.example.repo.PolicyCatalogueRepo;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -48,30 +45,29 @@ public class PolicyCatalogueServiceImpl implements PolicyCatalogueService {
         pRepo.save(policy);
     }
 
-	@Override
-	public PolicyDetailsOfCartItemResponse getPolicyDetailsOfCartItems(Long id) {
-		AllItemsInCartResponse cartItemsResponseBody = restTemplate.getForEntity(String.format(
-    			String.format(UriConstants.GET_ALL_ITEMS_FROM_CART_URL, id), id), 
-    			AllItemsInCartResponse.class).getBody();
-		List<PolicyCatalogue> listOfPolicyDetails = (List<PolicyCatalogue>) pRepo.findAllById(cartItemsResponseBody.getListOfPolicyIds());
-		return PolicyDetailsOfCartItemResponse.builder().userId(id).listOfPolicyDetails(listOfPolicyDetails).build();
-	}
-    
-    
+    @Override
+    public PolicyDetailsOfCartItemResponse getPolicyDetailsOfCartItems(Long id) {
+        AllItemsInCartResponse cartItemsResponseBody = restTemplate.getForEntity(String.format(
+                String.format(UriConstants.GET_ALL_ITEMS_FROM_CART_URL, id), id),
+                AllItemsInCartResponse.class).getBody();
+        List<PolicyCatalogue> listOfPolicyDetails = (List<PolicyCatalogue>) pRepo
+                .findAllById(cartItemsResponseBody.getListOfPolicyIds());
+        return PolicyDetailsOfCartItemResponse.builder().userId(id).listOfPolicyDetails(listOfPolicyDetails).build();
+    }
 
-	@Override
-	public Boolean handleBuyPolicy(Long userId) {
-		System.out.println("------- IN FUNCTION --------");
-		AllItemsInCartResponse cartItemsResponseBody = restTemplate.getForEntity(String.format(
-    			String.format(UriConstants.GET_ALL_ITEMS_FROM_CART_URL, userId), userId), 
-    			AllItemsInCartResponse.class).getBody();
-		if (cartItemsResponseBody == null || cartItemsResponseBody.getListOfPolicyIds() == null || 
-				cartItemsResponseBody.getListOfPolicyIds().isEmpty()) {
-			return Boolean.FALSE;
-		}
-    	restTemplate.postForEntity(UriConstants.CREATE_ORDER_FROM_CART_URL, CreateOrderFromCartRequest.builder()
-    			.userId(userId).isPaymentDone(Boolean.TRUE).build(), CreateOrderFromCartResponse.class);
-		return Boolean.TRUE;
-	}
+    @Override
+    public Boolean handleBuyPolicy(Long userId) {
+        System.out.println("------- IN FUNCTION --------");
+        AllItemsInCartResponse cartItemsResponseBody = restTemplate.getForEntity(String.format(
+                String.format(UriConstants.GET_ALL_ITEMS_FROM_CART_URL, userId), userId),
+                AllItemsInCartResponse.class).getBody();
+        if (cartItemsResponseBody == null || cartItemsResponseBody.getListOfPolicyIds() == null ||
+                cartItemsResponseBody.getListOfPolicyIds().isEmpty()) {
+            return Boolean.FALSE;
+        }
+        restTemplate.postForEntity(UriConstants.CREATE_ORDER_FROM_CART_URL, CreateOrderFromCartRequest.builder()
+                .userId(userId).isPaymentDone(Boolean.TRUE).build(), CreateOrderFromCartResponse.class);
+        return Boolean.TRUE;
+    }
 
 }

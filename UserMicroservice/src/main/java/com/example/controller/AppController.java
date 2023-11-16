@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.models.*;
+import com.example.repo.UserTableRepo;
 import com.example.security.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +31,18 @@ public class AppController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	@Autowired
+	private UserTableRepo repo;
+
 	@PostMapping("/login")
 	public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
-		System.out.println("Hello");
 		Authentication authenticate = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 		if (authenticate.isAuthenticated()) {
-			System.out.println("Hello1");
 			String token = userService.generateToken(loginRequest.getUsername());
-			return ResponseEntity.ok().body(LoginResponse.builder().userLoginResponse(true).token(token).build());
+			User user = repo.findByUsername(loginRequest.getUsername()).get();
+			return ResponseEntity.ok().body(
+					LoginResponse.builder().userLoginResponse(true).userId(user.getUserId()).token(token).build());
 		} else
 			return ResponseEntity.ok().body(LoginResponse.builder().userLoginResponse(false).build());
 	}

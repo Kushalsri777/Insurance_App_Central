@@ -4,14 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import com.example.constants.UriConstants;
 import com.example.entity.PolicyCatalogue;
-import com.example.model.AllItemsInCartResponse;
-import com.example.model.CreateOrderFromCartRequest;
-import com.example.model.CreateOrderFromCartResponse;
-import com.example.model.PolicyDetailsOfCartItemResponse;
+
 import com.example.service.PolicyCatalogueService;
 
 @RestController
