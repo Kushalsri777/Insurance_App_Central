@@ -13,6 +13,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class AppControllerTests {
@@ -90,5 +91,31 @@ public class AppControllerTests {
                 .createOrder(CreateOrderFromCartRequest.builder().userId(userId).isPaymentDone(true).build());
         assertNotNull(result);
         assertEquals(response, result.getBody());
+    }
+
+    @Test
+    public void testGetAllOrderDetails() {
+        Long userId = 123L;
+        OrderDetailsResponse order1 = OrderDetailsResponse.builder()
+                .orderId(1L)
+                .userId(userId)
+                .isPaymentDone(true)
+                .totalAmountPaid(100.0)
+                .policyIds(Arrays.asList(101L, 102L))
+                .build();
+
+        OrderDetailsResponse order2 = OrderDetailsResponse.builder()
+                .orderId(2L)
+                .userId(userId)
+                .isPaymentDone(false)
+                .totalAmountPaid(150.0)
+                .policyIds(Arrays.asList(103L, 104L))
+                .build();
+
+        List<OrderDetailsResponse> orderDetailsList = Arrays.asList(order1, order2);
+        when(insuranceCartHandler.getOrderDetails(userId)).thenReturn(orderDetailsList);
+        ResponseEntity<List<OrderDetailsResponse>> responseEntity = appController.getAllOrderDetails(userId);
+        assertEquals(200, responseEntity.getStatusCodeValue());
+        assertEquals(orderDetailsList, responseEntity.getBody());
     }
 }

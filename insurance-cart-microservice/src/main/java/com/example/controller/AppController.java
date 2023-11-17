@@ -58,7 +58,7 @@ public class AppController {
     }
     
     @GetMapping("/getAllOrderDetails/{userId}")
-    public ResponseEntity<List<OrderDetailsResponse>> createOrder(
+    public ResponseEntity<List<OrderDetailsResponse>> getAllOrderDetails(
             @PathVariable final Long userId) {
         return ResponseEntity.ok().body(insuranceCartHandler.getOrderDetails(userId));
     }
