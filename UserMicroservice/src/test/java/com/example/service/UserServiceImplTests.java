@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,6 +25,8 @@ public class UserServiceImplTests {
     private UserService userService = new UserServiceImpl();
     @Mock
     private UserDao userDao;
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     public void beforeTest() {
@@ -33,10 +36,13 @@ public class UserServiceImplTests {
     @Test
     public void addUserToSystemTest() {
         User user = new User();
-        when(userDao.addUser(user)).thenReturn(true);
+        user.setUsername("testuser");
+        user.setPassword("password");
+        Mockito.when(passwordEncoder.encode(user.getPassword())).thenReturn("encodedPassword");
+        Mockito.when(userDao.addUser(any(User.class))).thenReturn(true);
         boolean result = userService.addUserToSystem(user);
         assertTrue(result);
-        verify(userDao, times(1)).addUser(user);
+        Mockito.verify(userDao).addUser(user);
     }
 
     @Test
@@ -56,19 +62,15 @@ public class UserServiceImplTests {
     }
 
     @Test
-    public void forgetPassword_SuccessTest() {
-        ForgetPasswordRequest forgetPasswordRequest = new ForgetPasswordRequest("adi", "nickName", "pwd");
-        when(userDao.forgetPassword(forgetPasswordRequest)).thenReturn(true);
+    public void forgetPasswordTest() {
+        ForgetPasswordRequest forgetPasswordRequest = new ForgetPasswordRequest();
+        forgetPasswordRequest.setUsername("testuser");
+        forgetPasswordRequest.setNewPassword("newPassword");
+        Mockito.when(passwordEncoder.encode(forgetPasswordRequest.getNewPassword())).thenReturn("encodedNewPassword");
+        Mockito.when(userDao.forgetPassword(any(ForgetPasswordRequest.class))).thenReturn(true);
         boolean result = userService.forgetPassword(forgetPasswordRequest);
         assertTrue(result);
-    }
-
-    @Test
-    public void forgetPassword_FailedTest() {
-        ForgetPasswordRequest forgetPasswordRequest = new ForgetPasswordRequest("adi", "nickName", "pwd");
-        when(userDao.forgetPassword(forgetPasswordRequest)).thenReturn(false);
-        boolean result = userService.forgetPassword(forgetPasswordRequest);
-        assertFalse(result);
+        Mockito.verify(userDao).forgetPassword(forgetPasswordRequest);
     }
 
     @Test

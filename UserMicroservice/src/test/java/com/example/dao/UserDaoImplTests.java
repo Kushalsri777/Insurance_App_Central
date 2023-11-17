@@ -92,7 +92,7 @@ public class UserDaoImplTests {
     }
 
     @Test
-    public void testGetAllUsers() {
+    public void getAllUsersTest() {
         List<User> userList = Collections.singletonList(new User());
         Mockito.when(userTableRepo.findAll()).thenReturn(userList);
         List<User> result = userDao.getAllUsers();
@@ -100,7 +100,8 @@ public class UserDaoImplTests {
     }
 
     @Test
-    public void testDeleteById() {
+    public void deleteByIdTest() {
+        Mockito.when(userTableRepo.existsById(1L)).thenReturn(true);
         userDao.deleteById(1L);
         Mockito.verify(userTableRepo).deleteById(1L);
     }
